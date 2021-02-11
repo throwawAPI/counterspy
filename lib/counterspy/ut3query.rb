@@ -1,7 +1,9 @@
 require "socket"
+require "counterspy/log"
 
 module Counterspy
   class UT3Query
+    extend Counterspy::Log
 
     # from Gamespy Query Protocol v4
     # http://wiki.unrealadmin.org/UT3_query_protocol
@@ -50,7 +52,7 @@ module Counterspy
       send_msg << id
       send_msg << @msg
       send_msg = send_msg.join
-      puts "Handshake [SEND] #{@host}:#{@port} <#{to_hex(send_msg)}>"
+      UT3Query.log("Handshake [SEND] #{@host}:#{@port} <#{to_hex(send_msg)}>")
       @client.send(send_msg, 0, @host, @port)
       if( wait || @wait )
         if( IO.select([@client], nil, nil, 5) )
@@ -67,7 +69,7 @@ module Counterspy
       end
       recv_msg  = recv_arr[0]
       recv_addr = recv_arr[1]
-      puts "Handshake [RECV] #{recv_addr[3]}:#{recv_addr[1]} <#{to_hex(recv_msg)}>"
+      UT3Query.log("Handshake [RECV] #{recv_addr[3]}:#{recv_addr[1]} <#{to_hex(recv_msg)}>")
       return true
     end # handshake()
 
