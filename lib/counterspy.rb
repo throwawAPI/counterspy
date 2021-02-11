@@ -1,3 +1,4 @@
+require "counterspy/ut3query"
 require "counterspy/version"
 
 module Counterspy
