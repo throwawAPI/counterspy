@@ -1,4 +1,4 @@
-require "counterspy/ut3query"
+#require "counterspy/ut3"
 require "counterspy/version"
 
 module Counterspy
